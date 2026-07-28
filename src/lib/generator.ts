@@ -3,12 +3,15 @@ import type { Frac, Difficulty, Mode, Question } from "../type";
 //random integer between min and max, inclusive
 function randInt(min: number, max: number): number{
 return Math.floor(Math.random()* (max-min + 1))+ min;
+
 }
+
 const DEN_RANGE: Record<Difficulty, {min: number; max: number}> = {
     easy: {min: 2, max: 6},
     medium:{min:2,max: 10},
     hard:{min: 2, max:12},
 };
+
 
 //A random proper fraction: 1<=num<den
 function randFrac(difficulty: Difficulty): Frac{
