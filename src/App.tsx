@@ -4,7 +4,7 @@ import "./App.css";
 import { useState } from "react";
 import { FractionBar } from "./components/FractionBar";
 import { BuildQuestion } from "./components/BuildQuestion";
-
+import { CompareQuestion } from "./components/CompareQuestion";
 function App(){
   const [state, dispatch] = useReducer(gameReducer, initialState);
   const [testFilled, setTestFilled] = useState(0);
@@ -25,9 +25,15 @@ function App(){
       <h1>Fraction Lab</h1>
       <p>phase: {state.phase} | score: {state.score} | streak: {state.streak}</p>
       {state.phase === "menu" && (
-        <button onClick={()=>dispatch({
-          type: "START", mode: "build", difficulty: "easy"
-        })}> Start</button>
+      <>
+      <button onClick={() => dispatch({ type: "START", mode: "build", difficulty: "easy" })}>
+  Build mode
+</button>
+    <button onClick={() => dispatch({ type: "START", mode: "compare", difficulty: "easy" })}>
+      Compare mode
+    </button>
+      </>
+
       )} 
 
       {state.phase ==="playing" && (
@@ -36,6 +42,7 @@ function App(){
           <p>Question {state.current + 1 } of {state.questions.length}</p>
           {(()=>{
             const q = state.questions[state.current];
+            
             if(q.mode === "build"){
               return (
                 <BuildQuestion
@@ -46,6 +53,17 @@ function App(){
                 />
               );
             }
+            if (q.mode === "compare") {
+  return (
+    <CompareQuestion
+      key={state.current}
+      left={q.left}
+      right={q.right}
+      onAnswer={(correct) => dispatch({ type: "ANSWER", correct })}
+    />
+  );
+}
+            
             return <p>({q.mode} mode coming soon)</p>
           })()}
           </div>

@@ -19,3 +19,10 @@ button {
 button:hover {
     background: #f0f0f0;
 }
+
+.compare-row {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    align-items: flex-end;
+}
