@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FractionBar } from "./components/FractionBar";
 import { BuildQuestion } from "./components/BuildQuestion";
 import { CompareQuestion } from "./components/CompareQuestion";
+import { EquivalentQuestion } from "./components/EquivalentQuestion";
 function App(){
   const [state, dispatch] = useReducer(gameReducer, initialState);
   const [testFilled, setTestFilled] = useState(0);
@@ -31,6 +32,9 @@ function App(){
 </button>
     <button onClick={() => dispatch({ type: "START", mode: "compare", difficulty: "easy" })}>
       Compare mode
+    </button>
+        <button onClick={() => dispatch({ type: "START", mode: "equivalent", difficulty: "easy" })}>
+      Equivalent mode
     </button>
       </>
 
@@ -64,7 +68,15 @@ function App(){
   );
 }
             
-            return <p>({q.mode} mode coming soon)</p>
+            if (q.mode === "equivalent") {
+  return (
+    <EquivalentQuestion
+      key={state.current}
+      target={q.target}
+      onAnswer={(correct) => dispatch({ type: "ANSWER", correct })}
+    />
+  );
+}
           })()}
           </div>
 

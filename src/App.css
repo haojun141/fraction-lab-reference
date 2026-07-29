@@ -26,3 +26,8 @@ button:hover {
     justify-content: center;
     align-items: flex-end;
 }
+
+.den-active {
+    background: #ff6b6b;
+    color: white;
+}
