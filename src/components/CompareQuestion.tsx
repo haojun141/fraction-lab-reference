@@ -29,9 +29,9 @@ export function CompareQuestion({left, right, onAnswer}: CompareQuestionProps){
                     <p>{right.num}/{right.den}</p>
                 </div>
             </div>
-            <button onClick={()=>handleChoice(-1)}>Left is bigger</button>
+            <button onClick={()=>handleChoice(1)}>Left is bigger</button>
             <button onClick={()=>handleChoice(0)}>Equal</button>
-            <button onClick={()=>handleChoice(1)}>Right is bigger</button>
+            <button onClick={()=>handleChoice(-1)}>Right is bigger</button>
 
         </div>
     )
