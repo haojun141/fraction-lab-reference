@@ -1,5 +1,5 @@
 import type { Frac, Difficulty, Mode, Question } from "../type";
-
+import { simplify } from "./fractions";
 //random integer between min and max, inclusive
 function randInt(min: number, max: number): number{
 return Math.floor(Math.random()* (max-min + 1))+ min;
@@ -23,7 +23,7 @@ function randFrac(difficulty: Difficulty): Frac{
 
 export function generateQuestion(mode: Mode, difficulty: Difficulty): Question{
     if (mode === "build"){
-        const target = randFrac(difficulty);
+        const target = simplify(randFrac(difficulty));
         //sometimes gives a bar split finer than the target(x2), so the student must fill an equivalent amount 
         const finer = Math.random() <= 0.4 && target.den * 2 < DEN_RANGE[difficulty].max;
         const segments = finer ? target.den * 2: target.den;
