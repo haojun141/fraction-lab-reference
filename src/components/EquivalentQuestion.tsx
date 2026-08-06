@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Frac } from "../type";
 import { equals } from "../lib/fractions";
 import { FractionBar } from "./FractionBar";
+import { buttonBase } from "../lib/styles";
 
 interface EquivalentQuestionProps {
   target: Frac;
@@ -26,19 +27,22 @@ export function EquivalentQuestion({ target, onAnswer }: EquivalentQuestionProps
   }
 
   return (
-    <div>
-      <h2>Make a fraction equal to {target.num}/{target.den}</h2>
+    <div className="equivalent-question bg-white border-[3px] border-ink rounded-3xl p-6">
+      <h2 className="text-xl font-bold mb-2">Make a fraction equal to {target.num}/{target.den}</h2>
 
       <FractionBar segments={target.den} filled={target.num} label="target fraction" />
-      <p>target: {target.num}/{target.den}</p>
+      <p className="text-lg font-bold my-3">target: {target.num}/{target.den}</p>
 
-      <p>Split your bar into:</p>
-      <div>
+      <p className="font-bold mt-4 mb-2">Split your bar into:</p>
+      <div className="flex gap-2 justify-center flex-wrap mb-3">
         {DENOMINATOR_OPTIONS.map((d) => (
           <button
             key={d}
             onClick={() => pickDen(d)}
-            className={d === den ? "den-active" : undefined}
+            className={
+              "px-3.5 py-2 rounded-full border-[3px] border-ink bg-white text-ink font-bold transition-transform duration-100 " +
+              (d === den ? "bg-equivalent-light border-equivalent scale-110" : "")
+            }
           >
             {d}
           </button>
@@ -51,9 +55,9 @@ export function EquivalentQuestion({ target, onAnswer }: EquivalentQuestionProps
         onSegmentClick={(i) => setFilled(i + 1 === filled ? i : i + 1)}
         label={`your bar, ${den} segments`}
       />
-      <p>Your fraction: {filled}/{den}</p>
+      <p className="text-lg font-bold my-3">Your fraction: {filled}/{den}</p>
 
-      <button onClick={handleSubmit}>Submit</button>
+      <button className={buttonBase + " bg-success-light border-success"} onClick={handleSubmit}>Submit</button>
     </div>
   );
 }

@@ -13,20 +13,23 @@ export function FractionBar({segments, filled, onSegmentClick, label}: FractionB
     const interactive = onSegmentClick !== undefined;
     return (
         <svg
-        width={BAR_WIDTH}
-        height={BAR_HEIGHT}
+        viewBox={`0 0 ${BAR_WIDTH} ${BAR_HEIGHT}`}
+        className="w-full max-w-[320px] h-auto mx-auto"
         role="img"
         aria-label={label??`${filled} of ${segments} segments`}
         >
             {Array.from({length: segments},(_,i)=>(
          <rect
           key={i}
-          x={i * segWidth}
-          y={0}
-          width={segWidth}
-          height={BAR_HEIGHT}
-          fill={i < filled ? "#ff6b6b" : "#fff5f0"}
-          stroke="#333"
+          className="transition-[fill] duration-200 ease-in-out motion-reduce:transition-none"
+          x={i * segWidth + 2}
+          y={2}
+          width={segWidth - 4}
+          height={BAR_HEIGHT - 4}
+          rx={8}
+          ry={8}
+          fill={i < filled ? "var(--color-build)" : "var(--color-empty-segment)"}
+          stroke="var(--color-ink)"
           strokeWidth={2}
           style={interactive ? { cursor: "pointer" } : undefined}
           onClick={interactive ? () => onSegmentClick(i) : undefined}

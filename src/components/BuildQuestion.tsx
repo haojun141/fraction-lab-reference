@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { Frac } from "../type";
 import { equals } from "../lib/fractions";
 import { FractionBar } from "./FractionBar";
+import { buttonBase } from "../lib/styles";
 
 interface BuildQuestionProps{
     target: Frac;
@@ -23,8 +24,8 @@ export function BuildQuestion({target, segments, onAnswer}: BuildQuestionProps){
  }
 
  return (
-    <div>
-        <h2>
+    <div className="build-question bg-white border-[3px] border-ink rounded-3xl p-6">
+        <h2 className="text-xl font-bold mb-2">
             Build {target.num}/{target.den}
         </h2>
         <FractionBar
@@ -33,10 +34,10 @@ export function BuildQuestion({target, segments, onAnswer}: BuildQuestionProps){
         onSegmentClick={handleSegmentClick}
         label={`Fraction bar with ${segments} segments, ${filled} filled`}
         />
-        <p>
+        <p className="text-lg font-bold my-3">
             Your fraction: {filled}/{segments}
         </p>
-        <button onClick={handleSubmit}>Submit</button>
+        <button className={buttonBase + " bg-success-light border-success"} onClick={handleSubmit}>Submit</button>
     </div>
  )
 }
